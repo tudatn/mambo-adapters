@@ -7,15 +7,17 @@ module TwilioAdapter
 		def handle_request
 			begin
 				to, from, sid, status = format_call_params(params)
-				response = do_request(to, from, sid, status)
-				logger.debug(response)
+
+				response = yield(to, from, status, sid)
+
 			rescue => error
 				logger.error(error)
-				response = do_failure
-			ensure
-				respond_with(response) do |format|
-					format.html { render(:xml => response) }
-				end
+				logger.error(error.backtrace)
+				response = Twilio::TwiML.build
+			end
+
+			respond_to do |format|
+				format.html { render(:xml => response) }
 			end
 		end
 
@@ -24,8 +26,8 @@ module TwilioAdapter
 			[
 				TwilioFormatter.format_phone_number(params[:To]),
 				TwilioFormatter.format_phone_number(params[:From]),
+				TwilioFormatter.format_status(params[:CallStatus]),
 				TwilioFormatter.format_sid(params[:CallSid]),
-				TwilioFormatter.format_status(params[:CallStatus])
 			]
 		end
 

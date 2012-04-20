@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   # specify any dependencies here; for example:
 	s.add_runtime_dependency "rails", TwilioAdapter::RAILS_VERSION
   s.add_runtime_dependency "twilio-rb"
+  s.add_runtime_dependency "mambo-sms"
   
   s.add_development_dependency "rspec-rails"
 end

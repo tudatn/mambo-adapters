@@ -28,12 +28,12 @@ module TwilioAdapter
 
 			# filter smses
 			smses.select! do |sms|
-				sms.direction == 'inbound' && DateTime.parse(sms.date_created) > after
+				sms.direction == "inbound" && DateTime.parse(sms.date_created) > after
 			end
 
 			# create messages
 			messages = smses.map do |sms|
-				Message.receive_from_phone_number(
+				Sms::Message.receive_from_phone_number(
 					TwilioFormatter.format_phone_number(sms.from),
 					TwilioFormatter.format_body(sms.body),
 					TwilioFormatter.format_sid(sms.sid)

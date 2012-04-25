@@ -7,11 +7,8 @@ module TwilioAdapter
 		end
 
 		#
-		def poll(after)
-			# twilio uses utc
-			after = after.utc
-
-			created_after = after.to_date
+		def poll
+			created_after = 1.week.ago.utc.to_date
 
 			smses = []
 
@@ -28,7 +25,7 @@ module TwilioAdapter
 
 			# filter smses
 			smses.select! do |sms|
-				sms.direction == "inbound" && DateTime.parse(sms.date_created) > after
+				sms.direction == "inbound" && !Sms::Message.first_by_sid(TwilioFormatter.format_sid(sms.sid))
 			end
 
 			# create messages

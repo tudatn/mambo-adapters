@@ -11,7 +11,7 @@ module TwilioAdapter
 			)
 
 			message.status = :Sent
-			message.sid = TwilioFormatter.format_sid(sms.sid)
+			message.sid = Formatter.format_sid(sms.sid)
 			message.save
 		end
 	end

@@ -25,15 +25,16 @@ module TwilioAdapter
 
 			# filter smses
 			smses.select! do |sms|
-				sms.direction == "inbound" && !Sms::Message.first_by_sid(TwilioFormatter.format_sid(sms.sid))
+				sms.direction == "inbound" && !Sms::Message.first_by_sid(Formatter.format_sid(sms.sid))
 			end
 
 			# create messages
 			messages = smses.map do |sms|
 				Sms::Message.receive_from_phone_number(
-					TwilioFormatter.format_phone_number(sms.from),
-					TwilioFormatter.format_body(sms.body),
-					TwilioFormatter.format_sid(sms.sid)
+					Formatter.format_phone_number(sms.from),
+					Formatter.format_body(sms.body),
+					Formatter.format_sid(sms.sid),
+					Formatter.format_date(sms.date_created)
 				)
 			end
 

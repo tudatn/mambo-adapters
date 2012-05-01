@@ -4,7 +4,7 @@ module TwilioAdapter
 	protected
 		#
 		def handle_request
-			#begin
+			begin
 				to, from, body, sid, status = format_request_params(params)
 
 				response = yield(to, from, body, sid)
@@ -13,13 +13,13 @@ module TwilioAdapter
 					format.html { render(:xml => response || Twilio::TwiML.build) }
 				end
 
-			#rescue => error
-			#	logger.error(error)
-#
-			#	respond_to do |format|
-			#		format.html { render(:xml => Twilio::TwiML.build) }
-			#	end
-			#end
+			rescue => error
+				logger.error(error)
+
+				respond_to do |format|
+					format.html { render(:xml => Twilio::TwiML.build) }
+				end
+			end
 		end
 
 		#
@@ -45,20 +45,20 @@ module TwilioAdapter
 		#
 		def format_request_params(params)
 			[
-				TwilioFormatter.format_phone_number(params[:To]),
-				TwilioFormatter.format_phone_number(params[:From]),
-				TwilioFormatter.format_body(params[:Body]),
-				TwilioFormatter.format_sid(params[:SmsSid])
+				Formatter.format_phone_number(params[:To]),
+				Formatter.format_phone_number(params[:From]),
+				Formatter.format_body(params[:Body]),
+				Formatter.format_sid(params[:SmsSid])
 			]
 		end
 
 		#
 		def format_status_callback_params(params)
 			[
-				TwilioFormatter.format_phone_number(params[:To]),
-				TwilioFormatter.format_phone_number(params[:From]),
-				TwilioFormatter.format_status(params[:SmsStatus]),
-				TwilioFormatter.format_sid(params[:SmsSid])
+				Formatter.format_phone_number(params[:To]),
+				Formatter.format_phone_number(params[:From]),
+				Formatter.format_status(params[:SmsStatus]),
+				Formatter.format_sid(params[:SmsSid])
 			]
 		end
 

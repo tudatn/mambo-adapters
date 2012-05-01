@@ -11,12 +11,16 @@ module TwilioAdapter
 
 		#
 		def send(message)
-			Twilio::SMS.create(
+			sms = Twilio::SMS.create(
 				:to => message.phone_number,
 				:from => self.phone_number,
 				:body => message.body,
 				:status_callback => self.url_helper(message)
 			)
+
+			message.sid = Formatter.format_sid(sms.sid)
+			message.save
+			message
 		end
 
 	protected

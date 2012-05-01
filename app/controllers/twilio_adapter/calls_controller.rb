@@ -24,10 +24,10 @@ module TwilioAdapter
 		#
 		def format_call_params(params)
 			[
-				TwilioFormatter.format_phone_number(params[:To]),
-				TwilioFormatter.format_phone_number(params[:From]),
-				TwilioFormatter.format_status(params[:CallStatus]),
-				TwilioFormatter.format_sid(params[:CallSid]),
+				Formatter.format_phone_number(params[:To]),
+				Formatter.format_phone_number(params[:From]),
+				Formatter.format_status(params[:CallStatus]),
+				Formatter.format_sid(params[:CallSid]),
 			]
 		end
 

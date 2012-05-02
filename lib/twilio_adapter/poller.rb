@@ -23,19 +23,23 @@ module TwilioAdapter
 				smses += Twilio::SMS.all(:to => @phone_number, :created_after => created_after, :page => page, :page_size => 1000)
 			end
 
-			# filter smses
-			smses.select! do |sms|
-				sms.direction == "inbound" && !Sms::Message.first_by_sid(Formatter.format_sid(sms.sid))
-			end
+			messages = []
 
-			# create messages
-			messages = smses.map do |sms|
-				Sms::Message.receive_from_phone_number(
-					Formatter.format_phone_number(sms.from),
-					Formatter.format_body(sms.body),
-					Formatter.format_sid(sms.sid),
-					Formatter.format_date(sms.date_created)
-				)
+			smses.each do |sms|
+				next if sms.direction != "inbound"
+
+				sid = Formatter.format_sid(sms.sid)
+
+				Sms::Message.transaction do
+					next if Sms::Message.first_by_sid(sid)
+
+					messages << Sms::Message.receive_from_phone_number(
+						Formatter.format_phone_number(sms.from),
+						Formatter.format_body(sms.body),
+						sid,
+						Formatter.format_date(sms.date_created)
+					)
+				end
 			end
 
 			messages

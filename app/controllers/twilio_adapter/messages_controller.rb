@@ -15,6 +15,7 @@ module TwilioAdapter
 
 			rescue => error
 				logger.error(error)
+				logger.error(error.backtrace)
 
 				respond_to do |format|
 					format.html { render(:xml => Twilio::TwiML.build) }

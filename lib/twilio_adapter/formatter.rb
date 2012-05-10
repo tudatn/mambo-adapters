@@ -3,7 +3,7 @@ module TwilioAdapter
 		#
 		def self.format_phone_number(phone_number)
 			return nil if phone_number.nil?
-			phone_number.gsub(/^\+?1?[^\d]*/, "")
+			phone_number.gsub(/^[^\d]?1?[^\d]*/, "")
 		end
 
 		#

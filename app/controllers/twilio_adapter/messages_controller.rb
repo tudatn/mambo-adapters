@@ -26,7 +26,7 @@ module TwilioAdapter
 		#
 		def handle_status_callback
 			begin
-				to, from, status, sid = format_status_callback_params(params)
+				to, from, sid, status = format_status_callback_params(params)
 
 				response = yield(to, from, status, sid)
 
@@ -49,7 +49,8 @@ module TwilioAdapter
 				Formatter.format_phone_number(params[:To]),
 				Formatter.format_phone_number(params[:From]),
 				Formatter.format_body(params[:Body]),
-				Formatter.format_sid(params[:SmsSid])
+				Formatter.format_sid(params[:SmsSid]),
+				Formatter.format_status(params[:SmsStatus])
 			]
 		end
 
@@ -58,8 +59,8 @@ module TwilioAdapter
 			[
 				Formatter.format_phone_number(params[:To]),
 				Formatter.format_phone_number(params[:From]),
+				Formatter.format_sid(params[:SmsSid]),
 				Formatter.format_status(params[:SmsStatus]),
-				Formatter.format_sid(params[:SmsSid])
 			]
 		end
 

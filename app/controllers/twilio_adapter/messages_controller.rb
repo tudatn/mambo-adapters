@@ -4,42 +4,23 @@ module TwilioAdapter
 	protected
 		#
 		def handle_request
-			begin
-				to, from, body, sid, status = format_request_params(params)
+			to, from, body, sid, status = format_request_params(params)
 
-				response = yield(to, from, body, sid)
+			response = yield(to, from, body, sid)
 
-				respond_to do |format|
-					format.html { render(:xml => response || Twilio::TwiML.build) }
-				end
-
-			rescue => error
-				logger.error(error)
-				logger.error(error.backtrace)
-
-				respond_to do |format|
-					format.html { render(:xml => Twilio::TwiML.build) }
-				end
+			respond_to do |format|
+				format.html { render(:xml => response || Twilio::TwiML.build) }
 			end
 		end
 
 		#
 		def handle_status_callback
-			begin
-				to, from, sid, status = format_status_callback_params(params)
+			to, from, sid, status = format_status_callback_params(params)
 
-				response = yield(to, from, status, sid)
+			response = yield(to, from, status, sid)
 
-				respond_to do |format|
-					format.html { render(:xml => response || Twilio::TwiML.build) }
-				end
-
-			rescue => error
-				logger.error(error)
-
-				respond_to do |format|
-					format.html { render(:xml => Twilio::TwiML.build) }
-				end
+			respond_to do |format|
+				format.html { render(:xml => response || Twilio::TwiML.build) }
 			end
 		end
 

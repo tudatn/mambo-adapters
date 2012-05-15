@@ -5,16 +5,9 @@ module TwilioAdapter
 	protected
 		#
 		def handle_request
-			begin
-				to, from, sid, status = format_call_params(params)
+			to, from, sid, status = format_call_params(params)
 
-				response = yield(to, from, status, sid)
-
-			rescue => error
-				logger.error(error)
-				logger.error(error.backtrace)
-				response = Twilio::TwiML.build
-			end
+			response = yield(to, from, status, sid)
 
 			respond_to do |format|
 				format.html { render(:xml => response) }

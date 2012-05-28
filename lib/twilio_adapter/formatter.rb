@@ -9,7 +9,8 @@ module TwilioAdapter
 		#
 		def self.format_body(body)
 			return "" if body.nil?
-			body.strip
+			# hack, upgrade mysql to 5.5 for proper unicode support
+			body.strip.gsub("\xF0\x9F\x98\x84", "")
 		end
 
 		#

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module TwilioAdapter
   class Engine < Rails::Engine
     isolate_namespace TwilioAdapter

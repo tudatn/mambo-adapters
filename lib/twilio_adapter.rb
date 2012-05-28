@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "twilio_adapter/version"
 require "twilio_adapter/engine"
 require "twilio_adapter/formatter"

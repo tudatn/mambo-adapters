@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module TwilioAdapter
 	class CallsController < BaseController
 		respond_to(:html)

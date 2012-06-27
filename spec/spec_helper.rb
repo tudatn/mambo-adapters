@@ -2,14 +2,14 @@
 ENV["RAILS_ENV"] ||= "test"
 require "rubygems"
 require "bundler"
-require "rails"
+
 Bundler.require(:default, :development, :assets) if defined?(Bundler)
 
 $:.push File.expand_path("../lib", __FILE__)
 $:.push File.expand_path("../app", __FILE__)
 
 # combustion
-Combustion.initialize!(:active_support, :action_controller, :action_view, :action_mailer, :sprockets)
+Combustion.initialize!
 
 spec_path = File.expand_path("../", __FILE__)
 

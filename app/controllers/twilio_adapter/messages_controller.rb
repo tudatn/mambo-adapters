@@ -47,7 +47,7 @@ module TwilioAdapter
 		end
 
 		#
-		def reply(message, status_callback)
+		def respond(message, status_callback)
 			twiml = Twilio::TwiML.build do |response|
 				if !message.nil?
 					response.sms(message.body, :status_callback => status_callback)

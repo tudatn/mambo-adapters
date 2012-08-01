@@ -23,7 +23,7 @@ module TwilioAdapter
 		#
 		def self.format_status(status)
 			return nil if status.nil?
-			status.strip.capitalize.to_sym
+			status.strip.downcase.to_sym
 		end
 
 		#

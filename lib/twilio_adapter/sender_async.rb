@@ -14,7 +14,7 @@ module TwilioAdapter
 		def send(message)
 			sms = Twilio::SMS.create(
 				:to => message.phone_number,
-				:from => self.phone_number,
+				:from => phone_number,
 				:body => message.body,
 				:status_callback => self.url_helper(message)
 			)

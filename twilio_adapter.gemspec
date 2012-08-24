@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
 	s.add_runtime_dependency "rails"
   s.add_runtime_dependency "twilio-rb"
   s.add_runtime_dependency "mambo-sms"
+  s.add_runtime_dependency "mambo-support"
   
   s.add_development_dependency "rspec-rails"
 	s.add_development_dependency "factory_girl"

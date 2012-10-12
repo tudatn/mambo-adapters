@@ -11,10 +11,10 @@ module Adapters::Gammu
 				messages = []
 				Adapters::Gammu::Connection.received.each do |sms|
 					messages << Sms::Message.receive_from_phone_number(
-						sms.phone_number,
-						sms.message,
-						sms.id,
-						sms.time)
+						sms[:phone_number],
+						sms[:message],
+						sms[:id],
+						sms[:time])
 				end
 				Adapters::Gammu::Connection.clear_received
 				messages

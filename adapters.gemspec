@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   # specify any dependencies here; for example:
 	s.add_runtime_dependency "rails"
   s.add_runtime_dependency "twilio-rb"
+  s.add_runtime_dependency "recursive-open-struct"  
   s.add_runtime_dependency "mambo-support"
   s.add_runtime_dependency "mambo-sms"  
   

@@ -3,10 +3,8 @@
 #- License, v. 2.0. If a copy of the MPL was not distributed with this
 #- file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-require "adapters/sender"
-
 module Adapters::Twilio
-	class SenderAsync < Adapters::Sender
+	class SenderAsync < ::Adapters::Sender
 		#
 		def initialize(phone_number, &url_helper)
 			super(phone_number)
@@ -23,7 +21,7 @@ module Adapters::Twilio
 			)
 
 			message.sid = Formatter.format_sid(sms.sid)
-			message.save
+			message.save!
 			message
 		end
 

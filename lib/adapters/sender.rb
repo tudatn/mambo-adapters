@@ -10,6 +10,11 @@ module Adapters
 			@phone_number = phone_number
 		end
 
+		#
+		def send(message)
+			raise("Not implemented: please subclass Adapters::Sender")
+		end
+
 	protected
 		#
 		attr_reader(:phone_number)

@@ -4,13 +4,7 @@
 #- file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 module Adapters::Twilio
-	class Poller
-		# instance methods
-		#
-		def initialize(phone_number)
-			@phone_number = phone_number
-		end
-
+	class Poller < ::Adapters::Poller
 		#
 		def poll
 			created_after = 1.week.ago.utc.to_date

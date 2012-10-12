@@ -21,11 +21,6 @@ module Adapters::Gammu
       true
     end
 
-    def self.reset
-      self.write
-      system('god restart mambo_gammu')
-    end
-
     def self.received
       Adapters::Gammu::InboxItem.all.map do |item|
         {

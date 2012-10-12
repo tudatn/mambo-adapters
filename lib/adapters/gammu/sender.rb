@@ -4,7 +4,7 @@
 #- file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 module Adapters::Gammu
-	class Sender
+	class Sender < Adapters::Sender
 		def send(message)
 			result = Adapters::Gammu::Connection.send_sms(message.phone_number, message.body)
 			message.status = result ? :sent : :failed

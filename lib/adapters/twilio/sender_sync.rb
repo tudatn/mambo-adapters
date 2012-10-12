@@ -6,7 +6,7 @@
 require "adapters/sender"
 
 module Adapters::Twilio
-	class SenderSync < Sender
+	class SenderSync < Adapters::Sender
 		#
 		def send(message)
 			sms = Twilio::SMS.create(

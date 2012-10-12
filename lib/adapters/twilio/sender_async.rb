@@ -6,7 +6,7 @@
 require "adapters/sender"
 
 module Adapters::Twilio
-	class SenderAsync < Sender
+	class SenderAsync < Adapters::Sender
 		#
 		def initialize(phone_number, &url_helper)
 			super(phone_number)

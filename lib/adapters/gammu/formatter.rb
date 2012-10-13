@@ -3,7 +3,7 @@
 #- License, v. 2.0. If a copy of the MPL was not distributed with this
 #- file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-module Adapters::Twilio
+module Adapters::Gammu
 	module Formatter
 		#
 		def self.format_phone_number(phone_number)
@@ -13,13 +13,12 @@ module Adapters::Twilio
 
 		#
 		def self.format_body(body)
-			return "" if body.nil?
+			body.nil? ? "" : body
 		end
 
 		#
 		def self.format_sid(sid)
-			return nil if sid.nil?
-			sid.strip
+			sid
 		end
 
 		#
@@ -30,7 +29,7 @@ module Adapters::Twilio
 
 		#
 		def self.format_date(date)
-			Time.parse(date).localtime
+			date.localtime
 		end
 	end
 end

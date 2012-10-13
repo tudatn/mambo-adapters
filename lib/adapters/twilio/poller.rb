@@ -32,7 +32,7 @@ module Adapters::Twilio
 				Sms::Message.transaction do
 					next if Sms::Message.first_by_sid(sid)
 
-					messages << Sms::Message.receive_from_phone_number(
+					messages << Sms::Message.receive_message(
 						Formatter.format_phone_number(sms.from),
 						Formatter.format_body(sms.body),
 						sid,

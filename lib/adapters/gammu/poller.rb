@@ -10,11 +10,23 @@ module Adapters::Gammu
 			ActiveRecord::Base.transaction do
 				messages = []
 				Adapters::Gammu::Connection.received.each do |sms|
-					messages << Sms::Message.receive_from_phone_number(
-						sms[:phone_number],
-						sms[:message],
-						sms[:id],
-						sms[:time])
+
+					phone_number = Formatter.format_phone_number(sms[:phone_number])
+
+					subscriber = Sms::Subscriber.first_by_phone_number(phone_number)
+
+					if subscriber
+						messages << subscriber.receive_message(
+							Formatter.format_body(sms[:message]),
+							Formatter.format_sid(sms[:id]),
+							Formatter.format_date(sms[:time]))
+					else
+						messages << Sms::Message.receive_message(
+							phone_number,
+							Formatter.format_body(sms[:message]),
+							Formatter.format_sid(sms[:id]),
+							Formatter.format_date(sms[:time]))
+					end
 				end
 				Adapters::Gammu::Connection.clear_received
 				messages

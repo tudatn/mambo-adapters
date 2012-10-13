@@ -20,5 +20,6 @@ require "adapters/twilio/sender_sync"
 require "adapters/twilio/poller"
 
 require "adapters/gammu/connection"
+require "adapters/gammu/formatter"
 require "adapters/gammu/sender"
 require "adapters/gammu/poller"

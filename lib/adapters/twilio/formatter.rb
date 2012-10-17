@@ -14,6 +14,7 @@ module Adapters::Twilio
 		#
 		def self.format_body(body)
 			return "" if body.nil?
+			body.strip
 		end
 
 		#
@@ -25,7 +26,7 @@ module Adapters::Twilio
 		#
 		def self.format_status(status)
 			return nil if status.nil?
-			status.strip.downcase.to_sym
+			status.strip.downcase
 		end
 
 		#

@@ -27,17 +27,23 @@ module Adapters::Twilio
 			smses.each do |sms|
 				next if sms.direction != "inbound"
 
+				from = Formatter.format_phone_number(sms.from)
+				body = Formatter.format_body(sms.body)
 				sid = Formatter.format_sid(sms.sid)
+				created = Formatter.format_date(sms.date_created)
 
 				Sms::Message.transaction do
 					next if Sms::Message.first_by_sid(sid)
 
-					messages << Sms::Message.receive_message(
-						Formatter.format_phone_number(sms.from),
-						Formatter.format_body(sms.body),
-						sid,
-						Formatter.format_date(sms.date_created)
-					)
+					# subscriber
+					subscriber = Sms::Subscriber.find_by_phone_number(from)
+
+					# create message
+					if subscriber
+						messages << subscriber.receive_message(body, sid)
+					else
+						messages << Sms::Message::receive_message(from, body, sid)
+					end
 				end
 			end
 

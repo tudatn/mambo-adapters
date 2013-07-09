@@ -12,14 +12,14 @@ module Adapters::Twilio
 			smses = []
 
 			# count smses
-			count = Twilio::SMS.count(:to => @phone_number, :created_after => created_after)
+			count = Twilio::SMS.count(:to => @phone_number, :created_after => created_after, :page_size => 1)
 
 			# number of pages
 			pages = (count / 1000).floor + 1
 
 			# get smses in pages
 			pages.times do |page|
-				smses += Twilio::SMS.all(:to => @phone_number, :created_after => created_after, :page => page, :page_size => 1000)
+				smses += Twilio::SMS.all(:to => @phone_number, :created_after => created_after, :page => page, :page_size => 20)
 			end
 
 			messages = []
